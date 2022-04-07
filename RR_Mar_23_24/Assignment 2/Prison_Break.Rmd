@@ -5,7 +5,7 @@ date: "6 04 2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -16,15 +16,19 @@ knitr::opts_chunk$set(echo = TRUE)
 *[Prison Break](https://en.wikipedia.org/wiki/Prison_Break#References)* is an American serial drama television series created by *Paul Scheuring* for *Fox*. The series revolves around two brothers, *Lincoln Burrows* (*Dominic Purcell*) and *Michael Scofield* (*Wentworth Miller*); *Burrows* has been sentenced to death for a crime he did not commit, and *Scofield* devises an elaborate plan to help his brother escape prison and clear his name. Along with creator *Paul Scheuring*, the series is executive produced by *Matt Olmstead*, *Kevin Hooks*, *Marty Adelstein*, *Dawn Parouse*, *Neal H. Moritz*, and *Brett Ratner* who directed the pilot episode. The series' theme music, composed by *Ramin Djawadi*, was nominated for a *Primetime Emmy Award* in 2006.[1] *Prison Break* is a joint production between *Original Film*, *Adelstein/Parouse Productions* (seasons 1-4), *Dawn Olmstead Productions* (season 5), *Adelstein Productions* (season 5), *One Light Road Productions* (season 5) *and 20th Century Fox Television*, and is syndicated by *20th Television*.
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
 # Define variable containing url
 url <- "https://upload.wikimedia.org/wikipedia/en/d/d3/Prison-break-s1-intro.jpg"
 ```
 ### 2. Photo from the TV Series
 <center><img src="`r url`"></center>
 
+&nbsp;
+
 ### 3. Summarizing Prison Break viewership
-```{r, echo = FALSE}
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 season <- c(1, 2, 3, 4, 5)
 viewers <- c(9.2, 9.3, 8.2, 6.1, 4.0)
 rank <- c(55, 51, 73, 68, 115)
@@ -32,8 +36,13 @@ rank <- c(55, 51, 73, 68, 115)
 df <- data.frame(season, viewers, rank)
 summary(df)
 ```
+
+&nbsp;
+
 ### 4. A graph of the viewership over time
-```{r, echo=FALSE}
+
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
 library(ggplot2)
 ggplot(df, aes(x = season, y = viewers)) +
   geom_bar(stat = 'identity') +
@@ -41,18 +50,19 @@ ggplot(df, aes(x = season, y = viewers)) +
   ylab("Number of viewers (in million)") +
   xlab("Season")
 ```
-### 4. A graph of the ranking over time
+&nbsp;
 
-```{r, echo=FALSE}
-ggplot(df, aes(x = season, y = rank)) +
+### 5. A graph of the ranking over time
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
+library(tidyverse)
+ggplot(df, aes(x = season, y = reorder(rank, desc(rank)), group = 1)) +
   geom_line(linetype = 'dashed', color = 'blue') +
+  geom_point() +
   ggtitle('Place in the popularity ranking by season') +
   ylab("Place in the ranking") +
   xlab("Season")
 ```
-
-
-
 
 
 
